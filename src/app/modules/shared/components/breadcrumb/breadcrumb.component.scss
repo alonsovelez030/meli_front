@@ -1,0 +1,19 @@
+@import "abstracts/mixins";
+@import "abstracts/variables";
+
+
+.breadcrumb{
+    @include flex();
+    padding: $spacing 0;
+    li{
+        font-size: 14px;
+        color: var(--gray2);
+
+        &:last-child{
+            color: var(--gray1);
+            font-weight: 400;
+            span{ display: none; }
+        }
+        &:nth-child(1n+2){ margin-left: 8px; }
+    }
+}

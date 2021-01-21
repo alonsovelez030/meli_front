@@ -1,0 +1,56 @@
+@import "abstracts/mixins";
+@import "abstracts/variables";
+
+.container{
+    .details{
+        padding: $spacingl;
+        background-color: var(--white);
+        @include flex();
+
+        .info{
+            flex: 85%;
+            img{
+                width: 100%;
+                height: 680px;
+                max-width: 680px;
+                object-fit: contain;
+            }
+            .description{
+                h2{
+                    font-size: 28px;
+                    color: var(--black);
+                }
+                p{
+                    font-size: 16px;
+                    color: var(--gray2);
+                    margin-top: $spacingl;
+
+                    letter-spacing: 1px;
+                    line-height: 1.3rem;
+                    text-align: justify;
+                }
+            }
+        }
+        .price{
+            .stock{
+                color: var(--black);
+                font-size: 14px;
+            }
+            h2{
+                font-size: 24px;
+                margin-top: $spacing;
+            }
+            h1{
+                font-size: 46px;
+                margin: $spacingl 0;
+            }
+            button{
+                width: 100%;
+                color: var(--white);
+                background-color: var(--secondary);
+                height: 40px;
+                border-radius: 5px;
+            }
+        }
+    }
+}

@@ -1,0 +1,15 @@
+<nav>
+    <div class="container">
+        <img src="./assets/img/logo.png" alt="logo">
+        <div class="search">
+            <input
+                type="text"
+                placeholder="Nunca dejes de buscar"
+                [(ngModel)]="currentSearch"
+                (keyup.enter)="search()">
+            <div class="element" (click)="search()">
+                <img src="./assets/img/search.png" alt="search">
+            </div>
+        </div>
+    </div>
+</nav>

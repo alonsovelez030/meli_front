@@ -1,0 +1,14 @@
+@mixin flex($alignItems: stretch, $justifyContent: flex-start, $direction: row, $wrap: nowrap) {
+  display: flex;
+  align-items: $alignItems;
+  justify-content: $justifyContent;
+  flex-direction: $direction;
+  flex-wrap: $wrap;
+}
+
+@mixin texts($lineHeight: 1) {
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  line-height: $lineHeight;
+}
