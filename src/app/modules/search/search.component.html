@@ -1,9 +1,14 @@
 <div class="container">
-    <app-breadcrumb></app-breadcrumb>
+    <app-breadcrumb
+        *ngIf="(getBreadCrumbData$| async) as breadCrumb"
+        [breadcrumb]="breadCrumb">
+    </app-breadcrumb>
     <div class="product-list">
-        <app-item></app-item>
-        <app-item></app-item>
-        <app-item></app-item>
-        <app-item></app-item>
+        <app-item
+            *ngFor="let product of getProductsData$ | async"
+            [product]="product">
+        </app-item>
     </div>
 </div>
+
+<app-loader-screen *ngIf="getLoadScreen$ | async"></app-loader-screen>

@@ -1,0 +1,64 @@
+.ml-confirm{
+  position: absolute; 
+  top: 0; 
+  left: 0;
+  .ml-wrapper-box{
+    position: fixed;
+    background-color: #3429437e;
+    width: 100%;
+    height: 100%;
+    z-index: 998;
+  }
+  .ml-confirm-box{
+    border-radius: 4px;
+    background-color: white;
+    z-index: 999;
+    position: fixed;
+    top: 100px;
+    left: 0;
+    right: 0;
+    max-width: 500px;
+    margin: 0 auto;
+    .ml-confirm-content{
+      padding: 32px 32px 24px;
+      .btn-group{
+        display: flex;
+        justify-content: flex-end;
+        .bof-btn-primary{
+          width: auto;
+          padding: 0 30px;
+        }
+        .bof-p-outline{width: 50px;}
+      }
+    }
+  }
+}
+
+#notification-container{
+  position: fixed;
+  z-index: 1000;
+  top: 18px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  max-width: 500px;
+  .ml-notification{
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0px 10px 10px -4px rgba(0,0,0,0.2);
+    span{
+      &.error{
+        color: #FF2426;
+      }
+      &.info{
+        color: #6186ff;
+      }
+      &.success{
+        color: #00DDCD;
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 <ul class="breadcrumb">
-    <li class="semi-regular">Electrónica, audio y video <span>></span></li>
-    <li class="semi-regular">Ipod <span>></span></li>
-    <li class="semi-regular">Reproducciones <span>></span></li>
-    <li class="semi-regular">Ipod Touch ></li>
-    <li class="semi-regular">32GB <span>></span></li>
+    <li *ngFor="let bread of breadcrumb"
+        class="semi-regular">
+        {{ bread.name }}
+        <span>></span>
+    </li>
 </ul>
