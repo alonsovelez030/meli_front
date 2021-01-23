@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BreadCrumbEntitie } from '@app/core/entities/core.entitie';
 
 @Component({
   selector: 'app-breadcrumb',
@@ -8,7 +7,7 @@ import { BreadCrumbEntitie } from '@app/core/entities/core.entitie';
 })
 export class BreadcrumbComponent implements OnInit {
 
-  @Input() breadcrumb: BreadCrumbEntitie[];
+  @Input() breadcrumb: string[];
 
   constructor() { }
 

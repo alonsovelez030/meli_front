@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BreadCrumbEntitie, Filters, Product } from '@app/core/entities/core.entitie';
+import { Filters, Item } from '@app/core/entities/core.entitie';
 import { Observable } from 'rxjs';
 import { SearchFacade } from './facades/search.facade';
 
@@ -11,8 +11,8 @@ import { SearchFacade } from './facades/search.facade';
 })
 export class SearchComponent implements OnInit {
 
-  public getProductsData$: Observable<Product[]> = this.searchFacade.getProductsData$;
-  public getBreadCrumbData$: Observable<BreadCrumbEntitie[]> = this.searchFacade.getBreadCrumbData$;
+  public getItemsData$: Observable<Item[]> = this.searchFacade.getItemsData$;
+  public getBreadCrumbData$: Observable<string[]> = this.searchFacade.getBreadCrumbData$;
   public getLoadScreen$: Observable<boolean> = this.searchFacade.getLoadScreen$;
 
   constructor(private searchFacade: SearchFacade,
@@ -22,7 +22,7 @@ export class SearchComponent implements OnInit {
     this.activeRoute.queryParams.subscribe(
       (query: Filters) => {
         if (query.search){
-          this.searchFacade.getProducts(query);
+          this.searchFacade.getItemsFn(query);
         }
       }
     );

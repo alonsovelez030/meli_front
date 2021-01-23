@@ -7,7 +7,8 @@ import { GlobalService } from '@core/services/global.services';
 import { PopUpNotificationService } from '@core/services/popup-notification.service';
 
 import * as GlobalAction from '@core/store/actions/global.action';
-import { Filters, ProductsResponse } from '@app/core/entities/core.entitie';
+import { Filters, HttpItemsResponse, Product, ProductDescription } from '@app/core/entities/core.entitie';
+import { normalizeItemDetails, normalizeItemList } from '@app/core/utils/serialize.util';
 
 
 @Injectable()
@@ -18,20 +19,49 @@ export class GlobalEffect {
               private popupService: PopUpNotificationService) {}
 
 
-  getProducts$ = createEffect(() => this.actions$.pipe(
-      ofType(GlobalAction.getProducts),
+  getItems$ = createEffect(() => this.actions$.pipe(
+      ofType(GlobalAction.getItemsAction),
       map( ({payload}) => payload ),
-      mergeMap((filters: Filters) => this.globalService.getProducts(filters)
+      mergeMap((filters: Filters) => this.globalService.getItemsService(filters)
       .pipe(
-        mergeMap((response: ProductsResponse) => [
-          GlobalAction.addProducts({payload: response.results.splice(0, 4)}),
-          GlobalAction.addBreadCrumb({payload: response?.filters[0]?.values[0]?.path_from_root}),
+        mergeMap((response: HttpItemsResponse) => [
+          GlobalAction.addItems({payload: normalizeItemList(response)}),
           GlobalAction.uiGlobal({ui: [{name: 'loadScreen', value: false}]})
         ]),
         catchError((err: HttpErrorResponse) => {
-          if (err.status !== 401) {
-            this.popupService.error(err.error.error);
-          }
+          this.popupService.error(err?.error?.error);
+          return of(GlobalAction.Empty());
+        })
+      ))
+    )
+  );
+
+
+  getDetails$ = createEffect(() => this.actions$.pipe(
+      ofType(GlobalAction.getDetailsAction),
+      map( ({payload}) => payload ),
+      mergeMap((filters: Filters) => this.globalService.getItemDetails(filters)
+      .pipe(
+        map((response: Product) => (GlobalAction.getDescription({filters, details: response}))),
+        catchError((err: HttpErrorResponse) => {
+          this.popupService.error(err?.error?.error);
+          return of(GlobalAction.Empty());
+        })
+      ))
+    )
+  );
+
+
+  getDescription$ = createEffect(() => this.actions$.pipe(
+      ofType(GlobalAction.getDescription),
+      mergeMap(({filters, details}) => this.globalService.getItemDescription(filters)
+      .pipe(
+        mergeMap((description: ProductDescription) => [
+          GlobalAction.addDetails({payload: normalizeItemDetails(description, details)}),
+          GlobalAction.uiGlobal({ui: [{name: 'loadScreen', value: false}]})
+        ]),
+        catchError((err: HttpErrorResponse) => {
+          this.popupService.error(err?.error?.error);
           return of(GlobalAction.Empty());
         })
       ))

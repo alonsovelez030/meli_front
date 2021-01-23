@@ -5,8 +5,8 @@
     </app-breadcrumb>
     <div class="product-list">
         <app-item
-            *ngFor="let product of getProductsData$ | async"
-            [product]="product">
+            *ngFor="let item of getItemsData$ | async"
+            [item]="item">
         </app-item>
     </div>
 </div>

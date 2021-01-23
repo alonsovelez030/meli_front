@@ -7,23 +7,23 @@ import { map } from 'rxjs/operators';
 import * as GlobalAction from '@core/store/actions/global.action';
 import * as GlobalRed from '@core/store/reducers/global.reducer';
 import { AdapterUi } from '@core/store/adapters/global.adapter';
-import { BreadCrumbEntitie, Filters, Product, UiState } from '@app/core/entities/core.entitie';
+import { Filters, Item, UiState } from '@app/core/entities/core.entitie';
 
 
 @Injectable()
 export class SearchFacade {
 
-  private getProducts$: Observable<Product[]> = this.store.pipe(select(GlobalRed.getProducts));
-  private getBreadCrumb$: Observable<BreadCrumbEntitie[]> = this.store.pipe(select(GlobalRed.getBreadCrumb));
+  private getItems$: Observable<Item[]> = this.store.pipe(select(GlobalRed.getItems));
+  private getBreadCrumb$: Observable<string[]> = this.store.pipe(select(GlobalRed.getBreadCrumb));
   private getUi$: Observable<UiState> = this.store.pipe(select(GlobalRed.getUiGlobal));
 
   constructor(private store: Store<AppState>) { }
 
-  get getProductsData$(): Observable<Product[]> {
-    return this.getProducts$;
+  get getItemsData$(): Observable<Item[]> {
+    return this.getItems$;
   }
 
-  get getBreadCrumbData$(): Observable<BreadCrumbEntitie[]> {
+  get getBreadCrumbData$(): Observable<string[]> {
     return this.getBreadCrumb$;
   }
 
@@ -31,9 +31,9 @@ export class SearchFacade {
     return this.getUi$.pipe(map(data => data.loadScreen));
   }
 
-  public getProducts(filter: Filters): void {
+  public getItemsFn(filter: Filters): void {
     this.setUi([{name: 'loadScreen', value: true}]);
-    this.store.dispatch(GlobalAction.getProducts({payload: filter}));
+    this.store.dispatch(GlobalAction.getItemsAction({payload: filter}));
   }
 
   public setUi(setUi: Array<AdapterUi>): void {

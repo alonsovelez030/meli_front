@@ -1,7 +1,6 @@
 export interface GlobalState{
-    selectedProduct: Product;
-    productList: Product[];
-    breadCrumb: BreadCrumbEntitie[];
+    itemSelected: ItemDetails;
+    itemList: ItemList;
     ui: UiState;
 }
 
@@ -9,32 +8,69 @@ export interface UiState {
     loadScreen?: boolean;
 }
 
+export interface Filters {
+    search?: string;
+    id?: string;
+}
 
-export interface BreadCrumbEntitie {
+export interface ItemList {
+    author: Author;
+    categories: string[];
+    items: Item[];
+}
+
+export interface Item {
     id: string;
+    title: string;
+    price: ItemPrice;
+    picture: string;
+    condition: string;
+    free_shipping: boolean;
+    place?: string;
+}
+
+export interface ItemPrice {
+    currency: string;
+    amount: number;
+    decimals: number;
+}
+
+export interface Author {
     name: string;
+    lastname: string;
 }
 
-export interface Filters {
-    search: string;
+export interface ItemDetail extends Item {
+    sold_quantity?: number;
+    description?: string;
 }
 
-export interface ProductsResponse {
+export interface ItemDetails extends Partial<ItemList>{
+    item: ItemDetail;
+}
+
+/****  Response entities ****/
+export interface HttpItemsResponse {
     results: Product[];
-    filters: Filters[];
+    filters: Categories[];
 }
 
-export interface Filters {
+export interface Categories {
     id: string;
     name: string;
     type: string;
-    values: [
-        {
-            id: string,
-            name: string,
-            path_from_root: BreadCrumbEntitie[];
-        }
-    ];
+    values: CategorieValues[];
+}
+
+export interface CategorieValues {
+    id: string;
+    name: string;
+    path_from_root: Categorie[];
+}
+
+export interface Categorie {
+    id: string;
+    name: string;
 }
 
 export interface Product {
@@ -51,6 +87,8 @@ export interface Product {
     currency_id: string;
     initial_quantity: number;
     available_quantity: number;
+    condition: string;
+    sold_quantity: number;
     pictures: ProductPicture[];
     thumbnail: string;
     shipping?: ShippingProduct;
@@ -78,10 +116,10 @@ export interface ProductPicture {
     secure_url: string;
     size: string;
     max_size: string;
-    quality: string; 
+    quality: string;
 }
 
-export interface ProducDescription {
+export interface ProductDescription {
     text: string;
     plain_text: string;
     last_updated: Date;
