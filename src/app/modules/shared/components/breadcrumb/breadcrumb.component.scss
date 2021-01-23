@@ -16,4 +16,8 @@
         }
         &:nth-child(1n+2){ margin-left: 8px; }
     }
+
+    @media (max-width: 767px) {
+        display: none;
+    }
 }

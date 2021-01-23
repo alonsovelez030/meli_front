@@ -13,7 +13,7 @@
         </div>
         <div class="price">
             <span class="stock">{{ conditionStatus(details.condition) }} - {{ details.sold_quantity }} vendidos</span>
-            <h2>{{ details.title }}</h2>
+            <h2>{{ details.title }} <img src="./assets/img/shipping.png" alt="free_shipping" *ngIf="details.free_shipping"></h2>
             <h1 class="semi-regular">${{ details.price.amount | currency:details.price.currency:'':'1.0-0' }}</h1>
             <button>Comprar</button>
         </div>
